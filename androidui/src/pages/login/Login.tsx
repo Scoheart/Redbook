@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import iconMainLogo from '../../assets/icon_main_logo.png';
 import {Alert} from 'react-native';
+import request from '../../request/request';
 
 const Login: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -17,7 +18,7 @@ const Login: React.FC = () => {
   };
 
   const handleLogin = async () => {
-    const res = await fetch('http://192.168.10.10:3000/user/login', {
+    const res = await request('/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import {Avatar, Text} from '@rneui/themed';
 import {View, StyleSheet} from 'react-native';
+import request from '../../../request/request';
 
 const Mine = () => {
   
   const fechData = async () => {
-    const response = await fetch(`http://192.168.10.10:3000/user`)
+    const response = await request(`/user`, null)
   }
 
   useEffect(() => {

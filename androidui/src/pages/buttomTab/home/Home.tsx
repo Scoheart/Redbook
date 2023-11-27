@@ -14,6 +14,7 @@ import TitleBar from './components/TitleBar';
 import {Avatar} from '@rneui/base';
 
 import heartEmpty from '../../../assets/icon_heart_empty.png';
+import request from '../../../request/request';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const style = StyleSheet.create({
@@ -52,8 +53,9 @@ const Home: React.FC = () => {
   const fetchData = async () => {
     console.log(page);
     try {
-      const response = await fetch(
-        `http://192.168.10.10:3000/article/page?page=${page}&pageSize=${pageSize}`,
+      const response = await request(
+        `/article/page?page=${page}&pageSize=${pageSize}`,
+        null,
       );
       const data = await response.json();
       setHomeList((prevData: any) =>

@@ -8,6 +8,7 @@ import RNDateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import RNPickerSelect from 'react-native-picker-select';
+import request from '../../request/request';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -29,7 +30,7 @@ const RegistrationScreen = () => {
   };
 
   const handleRegistration = async () => {
-    const res = await fetch('http://192.168.10.10:3000/user/register/', {
+    const res = await request('http://192.168.10.10:3000/user/register/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

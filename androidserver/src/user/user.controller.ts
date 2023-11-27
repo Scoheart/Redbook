@@ -68,6 +68,7 @@ export class UsersController {
 
   @Get(':id')
   getUserInfo(@Param('id') id: number) {
+    console.log("getUserInfo")
     return this.userService.getUserById(id);
   }
 }
