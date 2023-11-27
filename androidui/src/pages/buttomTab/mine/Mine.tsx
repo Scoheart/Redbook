@@ -1,17 +1,54 @@
-import React, { useEffect } from 'react';
-import {Avatar, Text} from '@rneui/themed';
+import React, {useEffect} from 'react';
+import {Avatar, Button, Text} from '@rneui/themed';
 import {View, StyleSheet} from 'react-native';
 import request from '../../../request/request';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#ffffff',
+  },
+  topView: {
+    height: 50, // 设置你想要的高度
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 24,
+    marginHorizontal: 16,
+  },
+  resume: {
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    height: 280,
+  },
+  buttonContainer: {
+    width: 120,
+    height: 48,
+  },
+  button: {
+    backgroundColor: '#eee',
+  },
+  bottomView: {
+    flex: 1,
+    backgroundColor: '#000000',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  text: {
+    color: '#ffffff',
+  },
+});
 const Mine = () => {
-  
   const fechData = async () => {
-    const response = await request(`/user`, null)
-  }
+    const response = await request(`/user`, null);
+  };
 
-  useEffect(() => {
-    
-  },[])
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
@@ -29,7 +66,33 @@ const Mine = () => {
           <Text>小红书号: Scoheart</Text>
         </View>
       </View>
-      <View style={styles.blank}></View>
+
+      <View style={styles.resume}>
+        <Text>何来人间惊鸿客，不过尘世一俗人</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            gap: 12,
+          }}>
+          {/* <Button
+            title="登录"
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.button}
+          />
+          <Button
+            title="注册"
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.button}
+          />
+          <Button
+            title="退出"
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.button}
+          /> */}
+        </View>
+      </View>
+
       <View style={styles.bottomView}>
         <View
           style={{
@@ -54,36 +117,5 @@ const Mine = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  topView: {
-    height: 50, // 设置你想要的高度
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatar: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 24,
-    marginHorizontal: 16,
-  },
-  blank: {
-    height: 280,
-  },
-  bottomView: {
-    flex: 1,
-    backgroundColor: '#000000',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  text: {
-    color: '#ffffff',
-  },
-});
 
 export default Mine;

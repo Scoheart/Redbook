@@ -15,6 +15,12 @@ export class Article {
   @Column()
   image: string;
 
+  @Column()
+  createAt: string;
+
+  @Column()
+  userId: number;
+
   @ManyToOne(() => User, (user) => user.articles)
   @JoinColumn()
   user: User;

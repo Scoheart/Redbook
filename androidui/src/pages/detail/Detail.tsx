@@ -15,7 +15,7 @@ import iconComment from '../../assets/icon_comment.png';
 import iconHeartEmpty from '../../assets/icon_heart_empty.png';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Avatar, Button, Text} from '@rneui/base';
-import {Input} from '@rneui/themed';
+import request from '../../request/request';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -31,13 +31,16 @@ const styles = StyleSheet.create({
 const Detail: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const [article, setArticle] = useState();
+  const [profile, setProfile] = useState();
   const {key, name, params, path} = useRoute();
   const {id} = params;
   const fetchData = async () => {
-    const response = await fetch(`http://192.168.10.10:3000/article/${id}`);
+    const response = await request(`/article/${id}`, null);
     const data = await response.json();
-
     setArticle(data);
+    const res = await request(`/user/profile/${data.userId}`, null);
+    const d = await res.json();
+    setProfile(d);
   };
 
   useEffect(() => {
@@ -54,6 +57,7 @@ const Detail: React.FC = () => {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 16,
+        backgroundColor: 'white',
       },
       left: {
         width: '50%',
@@ -96,12 +100,12 @@ const Detail: React.FC = () => {
           <TouchableOpacity>
             <Avatar
               size={40}
-              title="rd"
+              source={{uri: profile?.avatar}}
               rounded
               containerStyle={{backgroundColor: 'red'}}
             />
           </TouchableOpacity>
-          <Text>小小爱睡觉</Text>
+          <Text>{profile?.nickname}</Text>
         </View>
         <View style={styles.right}>
           <TouchableOpacity>
@@ -183,6 +187,8 @@ const Detail: React.FC = () => {
         alignItems: 'center',
         paddingHorizontal: 12,
         marginRight: 12,
+        borderColor: '#eee',
+        borderWidth: 1,
       },
       input: {
         height: '100%',
@@ -249,14 +255,19 @@ const Detail: React.FC = () => {
   };
 
   return (
-    <>
+    <View
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#fff',
+      }}>
       {renderTop()}
       <ScrollView>
         {renderImage()}
         {renderContent()}
       </ScrollView>
       {renderBottom()}
-    </>
+    </View>
 
     // <View style={styles.container}>
     //   {article && (

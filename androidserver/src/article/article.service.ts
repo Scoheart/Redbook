@@ -14,7 +14,7 @@ export class ArticleService {
   }
 
   getArticle(id: number) {
-    return this.articleRepository.findOneBy({ id: id });
+    return this.articleRepository.findOne({ where: { id: id } });
   }
 
   listArticle() {

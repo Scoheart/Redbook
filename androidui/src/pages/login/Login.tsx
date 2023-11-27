@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Input} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import iconMainLogo from '../../assets/icon_main_logo.png';
+import iconUnselected from '../../assets/icon_unselected.png';
 import {Alert} from 'react-native';
 import request from '../../request/request';
 
@@ -59,8 +67,9 @@ const Login: React.FC = () => {
         justifyContent: 'center',
       },
       button: {
-        borderRadius: 30,
+        borderRadius: 10,
         width: 200,
+        height: 44,
       },
     });
     return (
@@ -80,8 +89,41 @@ const Login: React.FC = () => {
             <Text>其他方式登陆</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text>我已经阅读协议，同意登陆</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+          }}>
+          <TouchableOpacity>
+            <Image
+              source={iconUnselected}
+              style={{
+                width: 20,
+                height: 20,
+              }}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: 12,
+              color: '#999',
+              marginLeft: 6,
+            }}>
+            我已阅读并同意
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://www.baidu.com');
+            }}>
+            <Text
+              style={{
+                fontSize: 12,
+                color: '#1020ff',
+              }}>
+              《用户协议》和《隐私政策》
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

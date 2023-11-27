@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
+import { ProfileService } from './profile.service';
 
 interface Response {
   code: number;
@@ -10,7 +11,10 @@ interface Response {
 
 @Controller('user')
 export class UsersController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private profileServie: ProfileService,
+  ) {}
 
   @Post('login')
   async Login(@Body() user: User): Promise<any> {
@@ -66,9 +70,13 @@ export class UsersController {
     }
   }
 
-  @Get(':id')
-  getUserInfo(@Param('id') id: number) {
-    console.log("getUserInfo")
-    return this.userService.getUserById(id);
+  @Get('profile/:id')
+  getUserInfoById(@Param('id') id: number) {
+    const profile = this.profileServie.getUserProfileById(id);
+    const user = this.userService.getUserById(id);
+    console.log('getUserInfo');
+    console.log(profile);
+    console.log(user);
+    return this.profileServie.getUserProfileById(id);
   }
 }

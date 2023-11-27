@@ -21,4 +21,6 @@ export class UserService {
   getUserById(id: number) {
     return this.userRepository.find({ where: { id: id } });
   }
+
+ 
 }

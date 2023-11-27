@@ -1,42 +1,41 @@
 import React, {useState} from 'react';
 import {View, Platform, Button, TextInput} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import {Input} from '@rneui/base';
 
 const MyDatePicker = () => {
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios'); // 在 iOS 上，时间选择器是一个模态框，需要手动关闭
-    setDate(currentDate);
-    console.log(currentDate);
-  };
-
-  const showDatepicker = () => {
-    setShow(true);
-  };
-
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState('');
   return (
     <View>
-      <Button onPress={showDatepicker} title="Show Date Picker" />
       <Input
-        placeholder="请选择日期"
-        value={date.toLocaleDateString()}
-        onPressIn={() => {
-          setShow(true);
-        }}></Input>
-      {show && (
-        <DateTimePicker
-          value={date}
-          mode="date" // 可以选择 'date', 'time', 或 'datetime'
-          display="default" // 可以选择 'default', 'spinner', 'calendar'
-          onChange={onChange}
-        />
-      )}
+        placeholder="title"
+        onChangeText={value => setTitle(value)}
+        value={title}
+      />
+      <Input placeholder="content" />
+      <Input placeholder="image url" />
+      <Input placeholder="createAt" />
     </View>
   );
 };
 
 export default MyDatePicker;
+
+// import {createDrawerNavigator} from '@react-navigation/drawer';
+// import {Text} from '@rneui/base';
+
+// const Drawer = createDrawerNavigator();
+
+// const jsx = function () {
+//   return <Text>sdfds</Text>;
+// };
+
+// export default function Publish() {
+//   return (
+//     <Drawer.Navigator>
+//       <Drawer.Screen name="Feed" component={jsx} />
+//       <Drawer.Screen name="Article" component={jsx} />
+//     </Drawer.Navigator>
+//   );
+// }

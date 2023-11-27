@@ -15,6 +15,8 @@ import {Avatar} from '@rneui/base';
 
 import heartEmpty from '../../../assets/icon_heart_empty.png';
 import request from '../../../request/request';
+import ResizeImage from './components/ResizeImage';
+import FlowList from '../../../components/flowlist/FlowList';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const style = StyleSheet.create({
@@ -24,7 +26,7 @@ const style = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   flatList: {
-    paddingTop: 6,
+    paddingTop: 8,
     width: '100%',
     height: '100%',
   },
@@ -61,6 +63,7 @@ const Home: React.FC = () => {
       setHomeList((prevData: any) =>
         page === 1 ? data : [...prevData, ...data],
       );
+      console.log(data);
     } catch (err) {
       console.log(err);
     } finally {
@@ -77,31 +80,6 @@ const Home: React.FC = () => {
     setRefreshing(true);
   };
 
-  // const requestHomeList = () => {
-  //   fetch(
-  //     `http://192.168.10.10:3000/article/page?page=${page}&pageSize=${pageSize}`,
-  //   )
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(page);
-  //       console.log('send request');
-  //       if (data !== null && data.length) {
-  //         if (page === 1) {
-  //           setHomeList(data);
-  //         } else {
-  //           setHomeList([...homeList, ...data]);
-  //         }
-  //         setPage(page + 1);
-  //       } else {
-  //         if (page === 1) {
-  //           setHomeList([]);
-  //         } else {
-  //           // 加载完毕
-  //         }
-  //       }
-  //     });
-  // };
-
   useEffect(() => {
     fetchData();
   }, [page]);
@@ -116,7 +94,7 @@ const Home: React.FC = () => {
           });
         }}>
         <View style={style.item}>
-          <Image source={{uri: item.image}} style={style.itemImage} />
+          <ResizeImage uri={item.image} />
           <Text
             style={{
               marginHorizontal: 12,
@@ -140,10 +118,12 @@ const Home: React.FC = () => {
               <Avatar
                 size={20}
                 rounded
-                title="Rd"
+                source={{
+                  uri: 'http://172.21.246.114:3000/public/user/avatar/avatar_03.png',
+                }}
                 containerStyle={{backgroundColor: 'pink'}}
               />
-              <Text>Scoheart</Text>
+              <Text>momo</Text>
             </View>
             <TouchableOpacity>
               <Image
@@ -163,7 +143,7 @@ const Home: React.FC = () => {
   return (
     <View style={style.root}>
       <TitleBar />
-      <FlatList
+      <FlowList
         data={homeList}
         style={style.flatList}
         numColumns={2}
